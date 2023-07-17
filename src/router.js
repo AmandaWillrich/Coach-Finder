@@ -14,9 +14,9 @@ const router = createRouter({
     routes: [
         { path: '/', redirect: '/coaches' },
         { path: '/coaches', component: CoachesList },
-        { path: '/coaches/:id', component: CoachDetail, children: {
-            path: 'contact', component: ContactCoach //coaches/<id>/contact
-        } },
+        { path: '/coaches/:id', component: CoachDetail, props: true, children: [{ //when props true, the dynamic id is passed through props
+            path: 'contact', component: ContactCoach
+        }] },
         { path: '/register', component: CoachRegistration },
         { path: '/requests', component: ReceivedRequests },
         { path: '/:notFound(.*)', component: NotFound }, //regular expression that catches anything out of the routes
