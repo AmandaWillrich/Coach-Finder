@@ -1,3 +1,24 @@
 <template>
-    COACH REGISTRATION
+    <section>
+        <base-card>
+            <h2>Register as a coach!</h2>
+            <coach-form @save-data="saveData"></coach-form>
+        </base-card>
+    </section>
 </template>
+
+<script>
+import CoachForm from '../../components/coaches/CoachForm.vue'
+export default {
+    components: {
+        CoachForm
+    },
+    methods: {
+        saveData(formData) {
+            this.$store.dispatch('coaches/registerCoach', formData)
+            this.$router.replace('/coaches') // .push could be used
+            // the difference is that replace doesn't allow you to come back to the form
+        }
+    }
+}
+</script>

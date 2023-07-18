@@ -25,10 +25,22 @@ export default {
 		}
 	},
 	mutations: {
-
+		registerCoach(state, payload) {
+			state.coaches.push(payload)
+		}
 	},
 	actions: {
-
+		registerCoach(context, formData) {
+			const coachData = {
+				id: context.rootGetters.userId,
+				firstName: formData.firstName,
+				lastName: formData.lastName,
+				description: formData.description,
+				hourlyRate: formData.hourlyRate,
+				areas: formData.areas
+			}
+			context.commit('registerCoach', coachData)
+		}
 	},
 	getters: {
 		coaches(state) {
@@ -36,6 +48,11 @@ export default {
 		},
 		hasCoaches(state) {
 			return state.coaches && state.coaches.length > 0;
-		}
+		},
+		isCoach(_, getters, _2, rootGetters) {
+			const coaches = getters.coaches;
+			const userId = rootGetters.userId
+			return coaches.some(coach => coach.id === userId)
+		} // first parameter is state, of course ; the third one is rootState
 	}
 }
